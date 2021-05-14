@@ -72,6 +72,11 @@ flutter:
         - asset: fonts/SourceSansPro-Regular.ttf
         - asset: fonts/SourceSansPro-Italic.ttf
           style: italic
+    - family: Ubuntu
+      fonts:
+        - asset: fonts/Ubuntu-Regular.ttf
+        - asset: fonts/Ubuntu-Italic.ttf
+          style: italic
 
   # fonts:
   #   - family: Schyler

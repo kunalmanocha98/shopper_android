@@ -5,6 +5,7 @@ import 'package:shopper/src/HomePage/homepage.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'Registration/signup_page.dart';
+import 'Registration/welcome_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
       supportedLocales: AppLocalizations.supportedLocales,
       theme: ThemeData(
         primarySwatch: color,
-        fontFamily: 'Source Sans Pro',
+        fontFamily: 'Ubuntu',
         scaffoldBackgroundColor: ShopperColor.appBackgroundColor,
         appBarTheme: AppBarTheme(
           centerTitle: true,
@@ -47,25 +48,19 @@ class MyApp extends StatelessWidget {
         ),
         textButtonTheme: TextButtonThemeData(
           style: TextButton.styleFrom(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8)
-            ),
+            shape: StadiumBorder(),
             primary: ShopperColor.appMainColor,
           )
         ),
         elevatedButtonTheme:  ElevatedButtonThemeData(
-            style: TextButton.styleFrom(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8)
-              ),
+            style: ElevatedButton.styleFrom(
+              shape: StadiumBorder(),
               primary: ShopperColor.appMainColor,
             )
         ),
         outlinedButtonTheme: OutlinedButtonThemeData(
-            style: TextButton.styleFrom(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8)
-              ),
+            style: OutlinedButton.styleFrom(
+              shape:StadiumBorder(),
               primary: ShopperColor.appMainColor,
             )
         ),
@@ -86,7 +81,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       // home: HomePage(),
-      home: SignupPage(),
+      home: WelcomePage(),
     );
   }
 }
