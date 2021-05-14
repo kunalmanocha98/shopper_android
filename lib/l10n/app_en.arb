@@ -1,0 +1,30 @@
+{
+  "helloworld": "Hello World!!",
+  "@helloworld": {
+    "description": "This is the new beginning"
+  },
+  "button_placeholder": "Button",
+  "dashboard": "Dashboard",
+  "history": "History",
+  "create_shopping_list": "Create shopping list",
+  "assign_to": "Assign to",
+  "title": "Title",
+  "hint_enter_title": "Enter title here",
+  "note": "Note",
+  "hint_note": "Write a note here (optional)",
+  "checklist": "Checklist",
+  "add_task": "Add task",
+  "hint_enter_task": "Enter task",
+  "cancel": "Cancel",
+  "add": "Add",
+  "submit": "Submit",
+  "create": "Create",
+  "signup": "Signup",
+  "hint_enter_email": "Email address",
+  "hint_enter_mobile": "Mobile number",
+  "hint_enter_password": "Password",
+  "hint_enter_confirm_password": "Confirm Password",
+  "hint_enter_family_user_name": "Family username(must be unique)",
+  "hint_enter_family_name": "Family name",
+  "register_family": "Register family"
+}
