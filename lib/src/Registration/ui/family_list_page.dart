@@ -1,6 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:pagination_view/pagination_view.dart';
+import 'package:shopper/Network/app_url.dart';
+import 'package:shopper/Network/network.dart';
+import 'package:shopper/src/BasicUtilities/custom_localizations.dart';
 import 'package:shopper/src/BasicUtilities/custom_text_styles.dart';
+import 'package:shopper/src/BasicUtilities/paginator.dart';
+import 'package:shopper/src/Registration/models/family_models.dart';
 import 'package:shopper/src/UIComponents/custom_appbar.dart';
 
 import 'create_family_page.dart';
@@ -15,42 +21,54 @@ class FamilyListPageState extends State<FamilyListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: ShopperAppbar.getSimpleAppbar(
-        title: 'Family List',
-        actions: [IconButton(
-            icon: Icon(Icons.add),
-            onPressed: (){
-              Navigator.push(context, MaterialPageRoute(
-                builder: (BuildContext context){
-                  return CreateFamilyPage();
-                }
-              ));
-            })]
-      ),
-      body: PaginationView<String>(
-        pageFetch: fetchList,
-        itemBuilder: (BuildContext content, String string, int index) {
-          return ListTile(
-            title: Text(
-              string,
-              style: ShopperTextStyles.subtitle1,
-            ),
-            subtitle: Text(
-              "this is a family",
-              style: ShopperTextStyles.bodyText2,
-            ),
-          );
-        },
-        onEmpty: Center(child: Text("Empty")),
-        onError: (value) {
-          print(value.toString());
-          return Text("Error");
-        },
+          title: ShopperLocalizations(context).localization.families,
+          actions: [
+            IconButton(
+                icon: Icon(Icons.add),
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (BuildContext context) {
+                    return CreateFamilyPage();
+                  }));
+                })
+          ]),
+      body: Paginator<FamilyListResponse>.listView(
+        pageLoadFuture: fetchList,
+        pageItemsGetter: CustomPaginator(context).listItemsGetter,
+        listItemBuilder: listItemBuilder,
+        loadingWidgetBuilder: CustomPaginator(context).loadingWidgetMaker,
+        errorWidgetBuilder: CustomPaginator(context).errorWidgetMaker,
+        emptyListWidgetBuilder: CustomPaginator(context).emptyListWidgetMaker,
+        totalItemsGetter: CustomPaginator(context).totalPagesGetter,
+        pageErrorChecker: CustomPaginator(context).pageErrorChecker,
       ),
     );
   }
 
-  Future<List<String>> fetchList(int page) {
-    var list = List<String>.generate(20, (index) => "item$index");
-    return page == 0 ? Future.value(list) : Future.value([]);
+  Future<FamilyListResponse> fetchList(int page) async {
+    FamilyListRequest payload = FamilyListRequest();
+    payload.page = page;
+    payload.pageSize = 25;
+    var response = await NetworkCall().call(jsonEncode(payload), context, AppUrl.familyList,withToken: false);
+    return FamilyListResponse.fromJson(response);
+  }
+
+  Widget listItemBuilder(itemData, int index) {
+    FamilyListItem item = itemData;
+    return InkWell(
+      onTap: (){
+        Navigator.pop(context,item);
+      },
+      child: ListTile(
+        title: Text(
+          item.familyName,
+          style: ShopperTextStyles.subtitle1,
+        ),
+        subtitle: Text(
+          item.familyUserName,
+          style: ShopperTextStyles.bodyText2,
+        ),
+      ),
+    );
   }
 }

@@ -7,6 +7,9 @@ import 'package:shopper/src/BasicUtilities/custom_localizations.dart';
 import 'package:shopper/src/BasicUtilities/custom_text_styles.dart';
 import 'package:shopper/src/BasicUtilities/shopper_colors.dart';
 import 'package:shopper/src/BasicUtilities/shopper_mixins.dart';
+import 'package:shopper/src/BasicUtilities/string_constant.dart';
+import 'package:shopper/src/BasicUtilities/toast.dart';
+import 'package:shopper/src/Registration/models/family_models.dart';
 import 'package:shopper/src/Registration/models/signup_model.dart';
 import 'package:shopper/src/Registration/ui/family_list_page.dart';
 import 'package:shopper/src/Registration/ui/login_page.dart';
@@ -25,15 +28,17 @@ class SignupPageState extends State<SignupPage> with ShopperMixins {
   String password;
   String confirmPassword;
   String name;
-  String familyId;
+  FamilyListItem familyModel;
   TextEditingController passwordController = TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
@@ -149,14 +154,22 @@ class SignupPageState extends State<SignupPage> with ShopperMixins {
                                       Navigator.push(context, MaterialPageRoute(
                                           builder: (BuildContext context) {
                                         return FamilyListPage();
-                                      })).then((value) {});
+                                      })).then((value) {
+                                        if(value!=null){
+                                          Future.microtask((){
+                                            setState(() {
+                                              familyModel = value;
+                                            });
+                                          });
+                                        }
+                                      });
                                     },
                                     title: Text(
-                                      "Select Family",
+                                      familyModel!=null?familyModel.familyName:"Select Family",
                                       style: ShopperTextStyles.subtitle1,
                                     ),
                                     subtitle: Text(
-                                      "choose your family from the list or create your own",
+                                      familyModel!=null?familyModel.familyUserName:"choose your family from the list or create your own",
                                       style: ShopperTextStyles.bodyText2,
                                     ),
                                     trailing:
@@ -171,8 +184,14 @@ class SignupPageState extends State<SignupPage> with ShopperMixins {
                           child: ShopperElevatedButton(
                             onPressed: () {
                               if(formKey.currentState.validate()){
-                                formKey.currentState.save();
-                                signUp();
+                                if(familyModel!=null) {
+                                  formKey.currentState.save();
+                                  signUp();
+                                }else{
+                                  ToastAndSnackbar.showToast(
+                                  ShopperLocalizations(context).localization.select_family,
+                                 ShopperColor.information );
+                                }
                               }
                             },
                             textStyle: ShopperTextStyles.subtitle2,
@@ -203,11 +222,7 @@ class SignupPageState extends State<SignupPage> with ShopperMixins {
                     Navigator.pushAndRemoveUntil(context,
                         MaterialPageRoute(builder: (BuildContext context) {
                       return LoginPage();
-                    }), ModalRoute.withName('/')).then((value){
-                      if(value){
-                        familyId = value;
-                      }
-                    });
+                    }), ModalRoute.withName('/'));
                   },
                   buttonText: ShopperLocalizations(context).localization.login,
                 )
@@ -225,7 +240,17 @@ class SignupPageState extends State<SignupPage> with ShopperMixins {
     payload.email = email;
     payload.password = password;
     payload.mobile = mobile;
-    payload.familyId = familyId;
-    NetworkCall().call(jsonEncode(payload), context, AppUrl.signUp);
+    payload.familyId = familyModel.sId;
+    NetworkCall().call(jsonEncode(payload), context, AppUrl.signUp,withToken: false).then((value){
+      var res = SignUpResponse.fromJson(value);
+      if(res.code == Strings.successCode){
+        Navigator.pushAndRemoveUntil(context,
+            MaterialPageRoute(builder: (BuildContext context) {
+              return LoginPage();
+            }), ModalRoute.withName('/'));
+      }else{
+        ToastAndSnackbar.showToast(res.message, ShopperColor.failure);
+      }
+    });
   }
 }

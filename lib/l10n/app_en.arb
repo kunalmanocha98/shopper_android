@@ -33,5 +33,9 @@
   "dont_have_account": "Don't have an account?",
   "no_internet": "No Internet",
   "session_expire": "Session expired",
-  "hint_enter_name": "Full name"
+  "hint_enter_name": "Full name",
+  "families": "Families",
+  "retry": "Retry",
+  "empty": "Empty",
+  "select_family": "Please select a family"
 }
