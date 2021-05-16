@@ -20,6 +20,28 @@ class ShopperMixins{
     }
   }
 
+  String validatePassword(String value) {
+    if (value.isEmpty) {
+      return "This field is empty";
+    } else if(value.length < 8){
+      return "Password length must be at least 8 characters";
+    } else{
+      return null;
+    }
+  }
+
+  String validateConfirmPassword(String value, String value1) {
+    if (value1.isEmpty) {
+      return "This field is empty";
+    } else if(value1.length < 8){
+      return "Password length must be at least 8 characters";
+    } else if (value != value1){
+      return "Passwords don't match";
+    }else{
+      return null;
+    }
+  }
+
   String validateEmail(String value) {
     Pattern pattern =
         r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';

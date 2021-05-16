@@ -30,5 +30,8 @@
   "login": "Login",
   "welcome": "Welcome",
   "already_have_account": "Already have an account?",
-  "dont_have_account": "Don't have an account?"
+  "dont_have_account": "Don't have an account?",
+  "no_internet": "No Internet",
+  "session_expire": "Session expired",
+  "hint_enter_name": "Full name"
 }

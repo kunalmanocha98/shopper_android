@@ -16,4 +16,12 @@ class ShopperColor {
   static Color get appColorBlack10 =>  Color(0x1A000000);
 
   static Color get appColorBlack08 =>  Color(0x14000000);
+
+  static Color get information => Color(0xFFCCE5FF);
+
+  static Color get success => Color(0xFFd4edda);
+
+  static Color get warning => Color(0xFFfff3cd);
+
+  static Color get failure => Color(0xFFf8d7da);
 }

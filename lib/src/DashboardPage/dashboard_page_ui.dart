@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:shopper/src/BasicUtilities/custom_localizations.dart';
 import 'package:shopper/src/UIComponents/custom_shopping_list_card.dart';
 
 class DashboardPage extends StatefulWidget{

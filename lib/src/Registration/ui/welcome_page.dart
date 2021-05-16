@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shopper/src/BasicUtilities/custom_localizations.dart';
 import 'package:shopper/src/BasicUtilities/custom_text_styles.dart';
-import 'package:shopper/src/Registration/signup_page.dart';
+import 'package:shopper/src/Registration/ui/signup_page.dart';
 import 'package:shopper/src/UIComponents/custom_buttons.dart';
 
 import 'login_page.dart';

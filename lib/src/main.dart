@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:shopper/src/BasicUtilities/custom_text_styles.dart';
 import 'package:shopper/src/BasicUtilities/shopper_colors.dart';
-import 'package:shopper/src/HomePage/homepage.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import 'Registration/signup_page.dart';
-import 'Registration/welcome_page.dart';
+import 'Registration/ui/welcome_page.dart';
 
 void main() {
   runApp(MyApp());
