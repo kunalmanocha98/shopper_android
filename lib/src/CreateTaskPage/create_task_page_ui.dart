@@ -159,7 +159,11 @@ class _CreateTaskPage extends State<CreateTaskPage> {
     );
   }
 
-  void _deleteFromChecklist(int index) {}
+  void _deleteFromChecklist(int index) {
+    setState(() {
+    taskList.removeAt(index);
+    });
+  }
 
   void _addTask(String value) {
     setState(() {
