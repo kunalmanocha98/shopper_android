@@ -37,5 +37,7 @@
   "families": "Families",
   "retry": "Retry",
   "empty": "Empty",
-  "select_family": "Please select a family"
+  "select_family": "Please select a family",
+  "some_error": "Some error occured",
+  "logged_in": "Logged in successfully"
 }

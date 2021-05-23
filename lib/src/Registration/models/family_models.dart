@@ -76,3 +76,44 @@ class FamilyListItem {
     return data;
   }
 }
+
+class FamilyCreateRequest {
+  String familyName;
+  String familyUserName;
+
+  FamilyCreateRequest({this.familyName, this.familyUserName});
+
+  FamilyCreateRequest.fromJson(Map<String, dynamic> json) {
+    familyName = json['family_name'];
+    familyUserName = json['family_user_name'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['family_name'] = this.familyName;
+    data['family_user_name'] = this.familyUserName;
+    return data;
+  }
+}
+
+class FamilyCreateResponse {
+  String message;
+  String code;
+  int total;
+
+  FamilyCreateResponse({this.message, this.code, this.total});
+
+  FamilyCreateResponse.fromJson(Map<String, dynamic> json) {
+    message = json['message'];
+    code = json['code'];
+    total = json['total'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['message'] = this.message;
+    data['code'] = this.code;
+    data['total'] = this.total;
+    return data;
+  }
+}

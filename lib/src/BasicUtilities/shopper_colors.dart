@@ -3,6 +3,8 @@ import 'dart:ui';
 class ShopperColor {
   static Color get appMainColor =>  Color(0xFF00BCD4);
 
+  static Color get appMainAccent =>  Color(0XFFBAF7FF);
+
   static Color get appColorWhite =>  Color(0xFFFFFFFF);
 
   static Color get appBackgroundColor =>  Color(0xFFF3F2F2);

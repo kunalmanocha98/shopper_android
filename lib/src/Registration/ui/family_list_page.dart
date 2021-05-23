@@ -17,6 +17,7 @@ class FamilyListPage extends StatefulWidget {
 }
 
 class FamilyListPageState extends State<FamilyListPage> {
+  GlobalKey<PaginatorState> paginatorKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,10 +30,17 @@ class FamilyListPageState extends State<FamilyListPage> {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (BuildContext context) {
                     return CreateFamilyPage();
-                  }));
+                  })).then((value) {
+                    if(value!=null){
+                      if(value){
+                        refreshList();
+                      }
+                    }
+                  });
                 })
           ]),
       body: Paginator<FamilyListResponse>.listView(
+        key: paginatorKey,
         pageLoadFuture: fetchList,
         pageItemsGetter: CustomPaginator(context).listItemsGetter,
         listItemBuilder: listItemBuilder,
@@ -43,6 +51,10 @@ class FamilyListPageState extends State<FamilyListPage> {
         pageErrorChecker: CustomPaginator(context).pageErrorChecker,
       ),
     );
+  }
+
+  void refreshList(){
+    paginatorKey.currentState.changeState(resetState: true);
   }
 
   Future<FamilyListResponse> fetchList(int page) async {

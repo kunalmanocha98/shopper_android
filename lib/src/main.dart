@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shopper/src/BasicUtilities/custom_text_styles.dart';
+import 'package:shopper/src/BasicUtilities/locator.dart';
 import 'package:shopper/src/BasicUtilities/shopper_colors.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:shopper/src/SpalshPage/splashPage.dart';
 
 import 'Registration/ui/welcome_page.dart';
 
 void main() {
-  runApp(MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  setupLocator();
+  GetIt.I.isReady<SharedPreferences>().then((value){
+    runApp(MyApp());
+  });
 }
 var color = MaterialColor(0xFF00BCD4, {
   50:Color.fromRGBO(0, 188, 212, 0.1),
@@ -79,7 +87,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       // home: HomePage(),
-      home: WelcomePage(),
+      home: SplashPage(),
     );
   }
 }
