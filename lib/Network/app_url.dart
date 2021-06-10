@@ -10,4 +10,6 @@ class AppUrl {
   static String login = baseUrl + '/User/login';
 
   static String taskCreate = baseUrl + '/Task/create';
+
+  static String familyMembers = baseUrl + '/Task/familyMembers';
 }
