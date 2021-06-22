@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:shopper/src/BasicUtilities/custom_localizations.dart';
+import 'package:shopper/src/BasicUtilities/data_save.dart';
 import 'package:shopper/src/BasicUtilities/shopper_colors.dart';
 import 'package:shopper/src/CreateTaskPage/create_task_page_ui.dart';
 import 'package:shopper/src/DashboardPage/dashboard_page_ui.dart';
 import 'package:shopper/src/HistoryPage/history_page_ui.dart';
+import 'package:shopper/src/Registration/ui/welcome_page.dart';
 import 'package:shopper/src/UIComponents/custom_appbar.dart';
 
 
@@ -26,8 +28,24 @@ class HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: ShopperAppbar.getSimpleAppbar(title: _titleOptions.elementAt(_selectedIndex)
+        appBar:
+        ShopperAppbar.getSimpleAppbar(
+            title: _titleOptions.elementAt(_selectedIndex),
+          actions: [
+            IconButton(
+              icon: Icon(Icons.logout,),
+              onPressed: (){
+                DataSaveUtil.clearAllData();
+                Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
+                    builder: (BuildContext context){
+                      return WelcomePage();
+                    }
+                ),ModalRoute.withName('/'));
+              },
+            )
+          ]
          ),
+      
         bottomNavigationBar: BottomAppBar(
           shape: CircularNotchedRectangle(),
           color: ShopperColor.appMainColor,

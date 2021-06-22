@@ -39,5 +39,9 @@
   "empty": "Empty",
   "select_family": "Please select a family",
   "some_error": "Some error occured",
-  "logged_in": "Logged in successfully"
+  "logged_in": "Logged in successfully",
+  "task_create_error": "Please add atleast 1 task",
+  "task_create_success": "Task created successfully",
+  "task_create_fail": "Some error occurred",
+  "finish": "Finish"
 }

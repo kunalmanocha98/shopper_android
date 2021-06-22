@@ -8,7 +8,7 @@ import 'package:shopper/src/UIComponents/custom_buttons.dart';
 class AddTaskDialog extends StatelessWidget with ShopperMixins {
   final Function(String) addCallback;
   final Function cancelCallback;
-  String task;
+   String task;
   GlobalKey<FormState> formKey = GlobalKey();
 
   AddTaskDialog({this.addCallback, this.cancelCallback});

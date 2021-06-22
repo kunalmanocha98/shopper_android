@@ -7,7 +7,6 @@ import 'package:shopper/src/BasicUtilities/shopper_colors.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shopper/src/SpalshPage/splashPage.dart';
 
-import 'Registration/ui/welcome_page.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
