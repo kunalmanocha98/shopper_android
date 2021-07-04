@@ -49,10 +49,10 @@ class _DashboardPage extends State<DashboardPage> {
   Widget listItemBuilder(itemData, int index) {
     TaskListItem item = itemData;
     return ShopperChecklistCard(
+      isHistory:false,
       data: item,
       checkListCallback: (String id, int idx, bool value){
         // itemsList[index].checkList[idx].isCompleted = value;
-
       },
       finishCallback:(){
 

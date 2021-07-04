@@ -14,4 +14,11 @@ class AppUrl {
   static String familyMembers = baseUrl + '/Task/familyMembers';
 
   static String taskList = baseUrl + '/Task/list';
+
+  static String historyList = baseUrl + '/Task/history';
+
+  static String checkListUpdate = baseUrl +'/Task/checklistUpdate';
+
+  static String changeStatus = baseUrl +'/Task/changeStatus';
+
 }
