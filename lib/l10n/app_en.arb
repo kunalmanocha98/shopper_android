@@ -43,5 +43,19 @@
   "task_create_error": "Please add atleast 1 task",
   "task_create_success": "Task created successfully",
   "task_create_fail": "Some error occurred",
-  "finish": "Finish"
+  "finish": "Finish",
+  "next": "Next",
+  "proceed": "Proceed",
+  "login_welcome": "We are very happy to see you. Please login to enjoy great features!",
+  "signup_welcome": "We are happy to see you. Fill in all the details for quick registration",
+  "tasklist": "Tasklist",
+  "create_task": "Create task",
+  "settings": "Settings",
+  "completed_tasks": "Completed tasks",
+  "completed_task_des": "Tasks completed by you",
+  "logout": "Logout",
+  "logout_des": "All your saved data will be deleted on logout",
+  "mark_as_completed": "Mark as completed",
+  "add_checklist": "Add checklist"
+
 }

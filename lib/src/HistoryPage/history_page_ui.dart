@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shopper/Network/app_url.dart';
 import 'package:shopper/Network/network.dart';
+import 'package:shopper/src/BasicUtilities/custom_localizations.dart';
 import 'package:shopper/src/BasicUtilities/locator.dart';
 import 'package:shopper/src/BasicUtilities/paginator.dart';
 import 'package:shopper/src/BasicUtilities/string_constant.dart';
 import 'package:shopper/src/DashboardPage/Models/task_list_models.dart';
+import 'package:shopper/src/UIComponents/custom_appbar.dart';
 import 'package:shopper/src/UIComponents/custom_shopping_list_card.dart';
 
 class HistoryPage extends StatefulWidget{
@@ -22,15 +24,20 @@ class _HistoryPage extends State<HistoryPage>{
 
   @override
   Widget build(BuildContext context) {
-    return Paginator<TaskListResponse>.listView(
-      pageLoadFuture: fetchData,
-      pageItemsGetter: listItemsGetter,
-      listItemBuilder: listItemBuilder,
-      loadingWidgetBuilder: CustomPaginator(context).loadingWidgetMaker,
-      errorWidgetBuilder: CustomPaginator(context).errorWidgetMaker,
-      emptyListWidgetBuilder: CustomPaginator(context).emptyListWidgetMaker,
-      totalItemsGetter: CustomPaginator(context).totalPagesGetter,
-      pageErrorChecker: CustomPaginator(context).pageErrorChecker,
+    return SafeArea(
+      child: Scaffold(
+        appBar: ShopperAppbar.getSimpleAppbar(title: ShopperLocalizations(context).localization.history),
+        body: Paginator<TaskListResponse>.listView(
+          pageLoadFuture: fetchData,
+          pageItemsGetter: listItemsGetter,
+          listItemBuilder: listItemBuilder,
+          loadingWidgetBuilder: CustomPaginator(context).loadingWidgetMaker,
+          errorWidgetBuilder: CustomPaginator(context).errorWidgetMaker,
+          emptyListWidgetBuilder: CustomPaginator(context).emptyListWidgetMaker,
+          totalItemsGetter: CustomPaginator(context).totalPagesGetter,
+          pageErrorChecker: CustomPaginator(context).pageErrorChecker,
+        ),
+      ),
     );
   }
 

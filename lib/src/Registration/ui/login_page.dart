@@ -16,6 +16,7 @@ import 'package:shopper/src/HomePage/homepage.dart';
 import 'package:shopper/src/Registration/models/login_model.dart';
 import 'package:shopper/src/Registration/ui/signup_page.dart';
 import 'package:shopper/src/UIComponents/custom_buttons.dart';
+import 'package:shopper/src/UIComponents/custom_text_field.dart';
 
 class LoginPage extends StatefulWidget{
   @override
@@ -38,61 +39,63 @@ class LoginPageState extends State<LoginPage> with ShopperMixins{
             children: [
               Padding(
                 padding:  EdgeInsets.only(top:32.0,bottom: 8,left: 16),
-                child: Text(ShopperLocalizations(context).localization.login,
-                  style: ShopperTextStyles.headline2.copyWith(
+                child: Text(ShopperLocalizations(context).localization.welcome,
+                  style: ShopperTextStyles.headline5.copyWith(
                       fontWeight: FontWeight.bold
+                  ),),
+              ),
+              Padding(
+                padding:  EdgeInsets.only(top:0.0,bottom: 8,left: 16,right: 16),
+                child: Text(ShopperLocalizations(context).localization.login_welcome,
+                  style: ShopperTextStyles.subtitle2.copyWith(
+                      fontWeight: FontWeight.normal
                   ),),
               ),
               Expanded(
                 child: Container(
-                  child: Center(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: TextFormField(
-                            style: ShopperTextStyles.subtitle1,
-                            validator: validateEmail,
-                            onSaved: (value){
-                              emailId = value;
-                            },
-                            decoration: InputDecoration(
-                                hintStyle: ShopperTextStyles.caption,
-                                hintText: ShopperLocalizations(context).localization.hint_enter_email
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: TextFormField(
-                            style: ShopperTextStyles.subtitle1,
-                            obscureText: true,
-                            validator: validatePassword,
-                            onSaved: (value){
-                              password = value;
-                            },
-                            decoration: InputDecoration(
-                                hintStyle: ShopperTextStyles.caption,
-                                hintText: ShopperLocalizations(context).localization.hint_enter_password
-                            ),
-                          ),
-                        ),
-                        Container(
-                          width: double.infinity,
-                          padding: EdgeInsets.all(8),
-                          child: ShopperElevatedButton(onPressed: (){
-                            if(formKey.currentState.validate()){
-                              formKey.currentState.save();
-                              login();
-                            }
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      SizedBox(height: 30,),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: CustomTextField(
+                          validator: validateEmail,
+                          onSaved: (value){
+                            emailId = value;
                           },
-                            textStyle: ShopperTextStyles.subtitle2,
-                            textColor: ShopperColor.appColorWhite,
-                            buttonText: ShopperLocalizations(context).localization.login.toUpperCase(),),
-                        )
-                      ],
-                    ),
+                          labelText: ShopperLocalizations(context).localization.hint_enter_email,
+                          hint: ShopperLocalizations(context).localization.hint_enter_email,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: CustomTextField(
+                          obscureText: true,
+                          validator: validatePassword,
+                          onSaved: (value){
+                            password = value;
+                          },
+                          hint: ShopperLocalizations(context).localization.hint_enter_password,
+                          labelText: ShopperLocalizations(context).localization.hint_enter_password,
+                        ),
+                      ),
+                      Spacer(),
+                      Container(
+                        width: double.infinity,
+                        padding: EdgeInsets.all(8),
+                        child: ShopperElevatedButton(onPressed: (){
+                          if(formKey.currentState.validate()){
+                            formKey.currentState.save();
+                            login();
+                          }
+                        },
+                          padding: EdgeInsets.all(16),
+                          textStyle: ShopperTextStyles.subtitle2,
+                          textColor: ShopperColor.appColorWhite,
+                          buttonText: ShopperLocalizations(context).localization.login.toUpperCase(),),
+                      )
+                    ],
                   ),
                 ),
               ),

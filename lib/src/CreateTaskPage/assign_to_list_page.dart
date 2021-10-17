@@ -8,11 +8,16 @@ import 'package:shopper/src/BasicUtilities/custom_localizations.dart';
 import 'package:shopper/src/BasicUtilities/custom_text_styles.dart';
 import 'package:shopper/src/BasicUtilities/locator.dart';
 import 'package:shopper/src/BasicUtilities/paginator.dart';
+import 'package:shopper/src/BasicUtilities/shopper_colors.dart';
 import 'package:shopper/src/BasicUtilities/string_constant.dart';
+import 'package:shopper/src/BasicUtilities/toast.dart';
+import 'package:shopper/src/CreateTaskPage/Models/create_task_models.dart';
 import 'package:shopper/src/CreateTaskPage/Models/memberlist.dart';
 import 'package:shopper/src/UIComponents/custom_appbar.dart';
 
 class AssignToListPage extends StatefulWidget {
+  final CreateTaskRequest payload;
+  AssignToListPage({this.payload});
   @override
   AssignListState createState() => AssignListState();
 }
@@ -52,7 +57,7 @@ class AssignListState extends State<AssignToListPage> {
     FamilyMemberItem item = itemData;
     return ListTile(
       onTap: (){
-        Navigator.pop(context,item);
+       createTask(item);
       },
       title: Text(
         item.name,
@@ -63,5 +68,23 @@ class AssignListState extends State<AssignToListPage> {
         style: ShopperTextStyles.bodyText2,
       ),
     );
+  }
+  void createTask(FamilyMemberItem item) async {
+    widget.payload.assignTaskId = item.sId;
+    NetworkCall()
+        .call(jsonEncode(widget.payload), context, AppUrl.taskCreate)
+        .then((value) {
+      var res = CreateTaskResponse.fromJson(value);
+      if (res.code == Strings.successCode) {
+        ToastAndSnackbar.showToast(
+            ShopperLocalizations(context).localization.task_create_success,
+            ShopperColor.information);
+        Navigator.pop(context,true);
+      } else {
+        ToastAndSnackbar.showToast(
+            ShopperLocalizations(context).localization.task_create_fail,
+            ShopperColor.failure);
+      }
+    });
   }
 }

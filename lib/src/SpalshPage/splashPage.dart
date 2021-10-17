@@ -5,7 +5,7 @@ import 'package:shopper/src/BasicUtilities/locator.dart';
 import 'package:shopper/src/BasicUtilities/shopper_colors.dart';
 import 'package:shopper/src/BasicUtilities/string_constant.dart';
 import 'package:shopper/src/HomePage/homepage.dart';
-import 'package:shopper/src/Registration/ui/welcome_page.dart';
+import 'package:shopper/src/Registration/ui/login_page.dart';
 
 class  SplashPage extends StatefulWidget{
   @override
@@ -39,7 +39,7 @@ class _SplashPage extends State<SplashPage> {
   }
 
   void startFuture() async{
-    Future.delayed(Duration(seconds: 3),(){
+    Future.delayed(Duration(seconds: 1),(){
       if(prefs.containsKey(Strings.isLoggedIn)){
         if(prefs.getBool(Strings.isLoggedIn)){
           Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
@@ -50,14 +50,14 @@ class _SplashPage extends State<SplashPage> {
         }else{
           Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
               builder: (BuildContext context){
-                return WelcomePage();
+                return LoginPage();
               }
           ),ModalRoute.withName('/'));
         }
       }else{
         Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
             builder: (BuildContext context){
-              return WelcomePage();
+              return LoginPage();
             }
         ),ModalRoute.withName('/'));
       }

@@ -10,7 +10,7 @@ import 'package:shopper/src/BasicUtilities/log.dart';
 import 'package:shopper/src/BasicUtilities/shopper_colors.dart';
 import 'package:shopper/src/BasicUtilities/string_constant.dart';
 import 'package:shopper/src/BasicUtilities/toast.dart';
-import 'package:shopper/src/Registration/ui/welcome_page.dart';
+import 'package:shopper/src/Registration/ui/login_page.dart';
 import 'package:http/http.dart' as http;
 
 class NetworkCall{
@@ -67,7 +67,7 @@ class NetworkCall{
             SchedulerBinding.instance.addPostFrameCallback((_) {
               Navigator.pushAndRemoveUntil(context,
                   MaterialPageRoute(builder: (BuildContext context) {
-                    return WelcomePage();
+                    return LoginPage();
                   }), ModalRoute.withName('/'));
             });
           }

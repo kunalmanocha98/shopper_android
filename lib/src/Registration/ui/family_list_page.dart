@@ -6,12 +6,19 @@ import 'package:shopper/Network/network.dart';
 import 'package:shopper/src/BasicUtilities/custom_localizations.dart';
 import 'package:shopper/src/BasicUtilities/custom_text_styles.dart';
 import 'package:shopper/src/BasicUtilities/paginator.dart';
+import 'package:shopper/src/BasicUtilities/shopper_colors.dart';
+import 'package:shopper/src/BasicUtilities/string_constant.dart';
+import 'package:shopper/src/BasicUtilities/toast.dart';
 import 'package:shopper/src/Registration/models/family_models.dart';
+import 'package:shopper/src/Registration/models/signup_model.dart';
 import 'package:shopper/src/UIComponents/custom_appbar.dart';
 
 import 'create_family_page.dart';
+import 'login_page.dart';
 
 class FamilyListPage extends StatefulWidget {
+  final SignUpRequest signUpData;
+  FamilyListPage({this.signUpData});
   @override
   FamilyListPageState createState() => FamilyListPageState();
 }
@@ -69,7 +76,7 @@ class FamilyListPageState extends State<FamilyListPage> {
     FamilyListItem item = itemData;
     return InkWell(
       onTap: (){
-        Navigator.pop(context,item);
+        signUp(item);
       },
       child: ListTile(
         title: Text(
@@ -82,5 +89,20 @@ class FamilyListPageState extends State<FamilyListPage> {
         ),
       ),
     );
+  }
+
+  void signUp(FamilyListItem item) async{
+    widget.signUpData.familyId = item.sId;
+    NetworkCall().call(jsonEncode(widget.signUpData), context, AppUrl.signUp,withToken: false).then((value){
+      var res = SignUpResponse.fromJson(value);
+      if(res.code == Strings.successCode){
+        Navigator.pushAndRemoveUntil(context,
+            MaterialPageRoute(builder: (BuildContext context) {
+              return LoginPage();
+            }), ModalRoute.withName('/'));
+      }else{
+        ToastAndSnackbar.showToast(res.message, ShopperColor.failure);
+      }
+    });
   }
 }

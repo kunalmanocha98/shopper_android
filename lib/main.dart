@@ -15,17 +15,17 @@ void main() {
     runApp(MyApp());
   });
 }
-var color = MaterialColor(0xFF00BCD4, {
-  50:Color.fromRGBO(0, 188, 212, 0.1),
-  100:Color.fromRGBO(0, 188, 212, 0.2),
-  200:Color.fromRGBO(0, 188, 212, 0.3),
-  300:Color.fromRGBO(0, 188, 212, 0.4),
-  400:Color.fromRGBO(0, 188, 212, 0.5),
-  500:Color.fromRGBO(0, 188, 212, 0.6),
-  600:Color.fromRGBO(0, 188, 212, 0.7),
-  700:Color.fromRGBO(0, 188, 212, 0.8),
-  800:Color.fromRGBO(0, 188, 212, 0.9),
-  900:Color.fromRGBO(0, 188, 212, 1),
+var color = MaterialColor(0xFF188dee, {
+  50:ShopperColor.appMainColor.withOpacity(0.1),
+  100:ShopperColor.appMainColor.withOpacity(0.2),
+  200:ShopperColor.appMainColor.withOpacity(0.3),
+  300:ShopperColor.appMainColor.withOpacity(0.4),
+  400:ShopperColor.appMainColor.withOpacity(0.5),
+  500:ShopperColor.appMainColor.withOpacity(0.6),
+  600:ShopperColor.appMainColor.withOpacity(0.7),
+  700:ShopperColor.appMainColor.withOpacity(0.8),
+  800:ShopperColor.appMainColor.withOpacity(0.9),
+  900:ShopperColor.appMainColor.withOpacity(1),
 });
 
 class MyApp extends StatelessWidget {
@@ -39,34 +39,40 @@ class MyApp extends StatelessWidget {
       supportedLocales: AppLocalizations.supportedLocales,
       theme: ThemeData(
         primarySwatch: color,
-        fontFamily: 'Ubuntu',
+        fontFamily: 'Raleway',
         scaffoldBackgroundColor: ShopperColor.appBackgroundColor,
         appBarTheme: AppBarTheme(
           centerTitle: true,
           actionsIconTheme: IconThemeData(
-            color: ShopperColor.appColorBlack85,
+            color: ShopperColor.appColorWhite,
             size: 20
           ),
           iconTheme:  IconThemeData(
-              color: ShopperColor.appColorBlack85,
+              color: ShopperColor.appColorWhite,
               size: 20
           ),
         ),
         textButtonTheme: TextButtonThemeData(
           style: TextButton.styleFrom(
-            shape: StadiumBorder(),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12)
+            ),
             primary: ShopperColor.appMainColor,
           )
         ),
         elevatedButtonTheme:  ElevatedButtonThemeData(
             style: ElevatedButton.styleFrom(
-              shape: StadiumBorder(),
+              shape:RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12)
+              ),
               primary: ShopperColor.appMainColor,
             )
         ),
         outlinedButtonTheme: OutlinedButtonThemeData(
             style: OutlinedButton.styleFrom(
-              shape:StadiumBorder(),
+              shape:RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12)
+              ),
               primary: ShopperColor.appMainColor,
             )
         ),

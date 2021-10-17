@@ -26,7 +26,7 @@ class CreateFamilyPageState extends State<CreateFamilyPage> with ShopperMixins{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: ShopperAppbar.getSimpleAppbar(title: 'Create a Family'),
+      appBar: ShopperAppbar.getSimpleAppbar(title: ShopperLocalizations(context).localization.register_family),
       body: Form(
         key: formKey,
         child: Column(

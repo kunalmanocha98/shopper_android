@@ -70,16 +70,13 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-    - family: Source Sans Pro
+    - family: Raleway
       fonts:
-        - asset: fonts/SourceSansPro-Regular.ttf
-        - asset: fonts/SourceSansPro-Italic.ttf
+        - asset: fonts/Raleway-Regular.ttf
+        - asset: fonts/Raleway-Italic.ttf
           style: italic
-    - family: Ubuntu
-      fonts:
-        - asset: fonts/Ubuntu-Regular.ttf
-        - asset: fonts/Ubuntu-Italic.ttf
-          style: italic
+        - asset: fonts/Raleway-Bold.ttf
+        - asset: fonts/Raleway-ExtraBold.ttf
 
   # fonts:
   #   - family: Schyler

@@ -44,6 +44,7 @@ class ShopperElevatedButton extends StatelessWidget {
     var style = textStyle ?? ShopperTextStyles.caption;
     return ElevatedButton(
         onPressed: onPressed,
+
         child: Padding(
           padding: padding ?? EdgeInsets.all(0.0),
           child: Text(

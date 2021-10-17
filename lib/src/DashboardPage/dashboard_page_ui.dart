@@ -11,17 +11,21 @@ import 'package:shopper/src/DashboardPage/Models/task_list_models.dart';
 import 'package:shopper/src/UIComponents/custom_shopping_list_card.dart';
 
 class DashboardPage extends StatefulWidget {
+  DashboardPage(Key key):super(key: key);
   @override
-  _DashboardPage createState() => _DashboardPage();
+  DashboardPageState createState() => DashboardPageState();
 }
 
-class _DashboardPage extends State<DashboardPage> {
+class DashboardPageState extends State<DashboardPage> {
   SharedPreferences prefs = locator<SharedPreferences>();
   List<TaskListItem> itemsList = [];
+  GlobalKey<PaginatorState> paginatorKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
     return Paginator<TaskListResponse>.listView(
+      key: paginatorKey,
+      padding: EdgeInsets.only(bottom: 100),
       pageLoadFuture: fetchData,
       pageItemsGetter: listItemsGetter,
       listItemBuilder: listItemBuilder,
@@ -58,6 +62,10 @@ class _DashboardPage extends State<DashboardPage> {
 
       },
     );
+  }
+
+  void refresh() {
+    paginatorKey.currentState.changeState(resetState: true);
   }
 
 

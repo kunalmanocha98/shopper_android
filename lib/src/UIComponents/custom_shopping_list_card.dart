@@ -10,7 +10,6 @@ import 'package:shopper/src/DashboardPage/Models/change_status.dart';
 import 'package:shopper/src/DashboardPage/Models/checklist_models.dart';
 import 'package:shopper/src/DashboardPage/Models/task_list_models.dart';
 import 'package:shopper/src/DashboardPage/enums/task_status.dart';
-import 'package:shopper/src/Dialogs/dialog_task_note.dart';
 import 'package:shopper/src/UIComponents/custom_buttons.dart';
 import 'package:shopper/src/UIComponents/custom_card.dart';
 
@@ -41,77 +40,71 @@ class _ShopperChecklistCard extends State<ShopperChecklistCard> {
     return (data.isHidden!=null && data.isHidden)?
         Container()
         :ShopperCard(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Row(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
             children: [
-              Expanded(
-                  child: Text(
-                    data.title,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: ShopperTextStyles.subtitle1
-                        .copyWith(fontWeight: FontWeight.bold),
-                  )),
-              IconButton(
-                  icon: Icon(Icons.info_outline_rounded),
-                  onPressed: () {
-                    showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return DialogTaskNote(message: data.subtitle);
-                        });
-                  })
+              Text(
+                data.title,
+                style: ShopperTextStyles.headline6
+                    .copyWith(fontWeight: FontWeight.bold),
+              ),
+              Visibility(
+                visible: data.subtitle!=null && data.subtitle.isNotEmpty,
+                child: Text(
+                  data.subtitle ?? "",
+                  style: ShopperTextStyles.bodyText2
+                      .copyWith(fontWeight: FontWeight.normal),
+                ),
+              ),
+              SizedBox(height: 8,),
+              ListView.builder(
+                shrinkWrap: true,
+                padding: EdgeInsets.only(left: 2,right: 2),
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: data.checkList.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return CheckboxListTile(
+                      contentPadding: EdgeInsets.only(right: 8, left: 4),
+                      title: Text(
+                        data.checkList[index].task,
+                        style: ShopperTextStyles.subtitle2.copyWith(
+                          decoration: data.checkList[index].isCompleted?
+                          TextDecoration.lineThrough:
+                              TextDecoration.none
+                        ),
+                      ),
+                      subtitle: data.checkList[index].description != null
+                          ? Text(
+                        data.checkList[index].description,
+
+                        style: ShopperTextStyles.bodyText2.copyWith(
+                        ),
+                      )
+                          : null,
+                      value: data.checkList[index].isCompleted,
+                      onChanged: (value) {
+                        if(!widget.isHistory) {
+                          checkListUpdate(index, value);
+                        }
+                      });
+                },
+              ),
+              Visibility(
+                visible: !widget.isHistory,
+                child: Container(
+                  width: double.infinity,
+                  child: ShopperElevatedButton(
+                    onPressed: () {
+                      changeStatus();
+                    },
+                    buttonText: ShopperLocalizations(context).localization.mark_as_completed,
+                  ),
+                ),
+              )
             ],
           ),
-          ListView.builder(
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            itemCount: data.checkList.length,
-            itemBuilder: (BuildContext context, int index) {
-              return CheckboxListTile(
-                  contentPadding: EdgeInsets.only(right: 12, left: 8),
-                  title: Text(
-                    data.checkList[index].task,
-                    style: ShopperTextStyles.subtitle2,
-                  ),
-                  subtitle: data.checkList[index].description != null
-                      ? Text(
-                    data.checkList[index].description,
-                    style: ShopperTextStyles.bodyText2,
-                  )
-                      : null,
-                  value: data.checkList[index].isCompleted,
-                  onChanged: (value) {
-                    if(!widget.isHistory) {
-                      checkListUpdate(index, value);
-                    }
-                  });
-            },
-          ),
-          Visibility(
-            visible: !widget.isHistory,
-            child: Row(
-              children: [
-                Text("${data.percentCompleted}% Completed"),
-                Spacer(),
-                ShopperElevatedButton(
-                  onPressed: () {
-                    changeStatus();
-                  },
-                  buttonText: ShopperLocalizations(context).localization.finish,
-                ),
-                SizedBox(
-                  width: 8,
-                ),
-              ],
-            ),
-          )
-        ],
-      ),
-    );
+        );
   }
 
   void checkListUpdate(int index, bool isCompleted) async{

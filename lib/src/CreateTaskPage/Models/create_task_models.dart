@@ -21,7 +21,7 @@ class CreateTaskRequest {
     userId = json['user_id'];
     assignTaskId = json['assign_task_id'];
     if (json['checkList'] != null) {
-      checkList = new List<CheckList>();
+      checkList = [];
       json['checkList'].forEach((v) {
         checkList.add(new CheckList.fromJson(v));
       });
